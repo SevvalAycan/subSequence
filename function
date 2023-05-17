@@ -1,0 +1,43 @@
+CREATE OR REPLACE FUNCTION sub_sequence (s VARCHAR2, t VARCHAR2) RETURN BOOLEAN IS
+	i NUMBER :=1;
+	j NUMBER := 1;
+BEGIN
+    
+	WHILE i<= LENGTH(s) AND j<= LENGTH(t)
+	LOOP
+		IF SUBSTR(s,i,1) = SUBSTR(t,j,1) THEN
+			i:= i+1;
+		END IF;
+
+		j := j+1;
+
+	END LOOP;
+
+	IF i > LENGTH(s) THEN
+          
+		RETURN TRUE; 
+
+	ELSE
+          
+		RETURN FALSE; 
+
+	END IF;
+
+END;
+
+/
+
+DECLARE
+	result BOOLEAN;
+	s VARCHAR2(100) := 'kalem';
+	T VARCHAR2(100) := 'kalemlik';
+BEGIN
+	result := sub_sequence(s, t);
+    
+	IF result = TRUE THEN
+		DBMS_OUTPUT.PUT_LINE( s || ' is a subsequence of ' || t);
+	ELSE
+		DBMS_OUTPUT.PUT_LINE( s || ' is not a subsequence of ' || t);
+	END IF;
+
+END;
